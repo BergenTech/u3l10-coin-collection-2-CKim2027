@@ -141,7 +141,7 @@ function checkCollisions() {
   if (distance(playerX, playerY, obstacleX, obstacleY)<20){
     hits+=1
     if (hits>=3){
-      displayGameOver()
+      gameOver = true
     }
     playerX = width/2;
     playerY = height - 20
