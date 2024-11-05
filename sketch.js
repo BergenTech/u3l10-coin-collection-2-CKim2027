@@ -87,6 +87,19 @@ function movePlayer() {
   // TODO: Add boundary checking
   // HINT: Keep player within canvas bounds
   // Check against 0, width, and height
+  if (playerX<0){
+    playerX=20
+  }
+  if (playerX>width){
+    playerX=width-20
+  }
+  if (playerY<0){
+    playerY=20
+  }
+  if (playerY>height){
+    playerY=height-20
+  }
+
 }
 
 function moveObstacle() {
@@ -100,7 +113,7 @@ function moveObstacle() {
   if(obstacleY>height){
     obstacleY=0
     obstacleX=random(20, width-20)
-    obstacleSpeed+=0.5
+    obstacleSpeed+=0.1
   }
 }
 
@@ -114,7 +127,7 @@ function checkCoinCollection() {
   if(dist(playerX, playerY, coinX, coinY)<15){
     score+=1
     newCoin()
-    obstacleSpeed+=1
+    obstacleSpeed+=0.5
   }
 }
 
@@ -153,8 +166,8 @@ function displayGameOver() {
   //   - "Game Over" message
   //   - Final score
   //   - "Press R to Restart"
-  speed = 0
   
+
 }
 
 function newCoin() {
@@ -179,6 +192,9 @@ function keyPressed() {
   // TODO: Check for 'R' key to restart game
   // HINT: Use key === 'r' || key === 'R'
   // Only works when game is over
+  if(key === 'r' || key === 'R'){
+    resetGame()
+  }
 }
 
 // Helper function you might need
