@@ -5,6 +5,7 @@ let obstacleX, obstacleY;
 let score = 0;
 let gameOver = false;
 let obstacleSpeed = 5
+let hits = 0
 
 function setup() {
   createCanvas(400, 400);
@@ -20,8 +21,8 @@ function initializeGame() {
   newCoin();
   
   // Initialize obstacle position
-  obstacleX = 0;
-  obstacleY = random(20, height-20);
+  obstacleX = random(20,width-20);
+  obstacleY = 0;
 }
 
 function draw() {
@@ -96,7 +97,10 @@ function moveObstacle() {
   // TODO: Reset obstacle when it goes off screen
   // HINT: Check if obstacleX > width
   // Reset to left side and new random Y position
-  
+  if(obstacleY>height){
+    obstacleY=0
+    obstacleX=random(20, width-20)
+  }
 }
 
 function checkCoinCollection() {
@@ -108,7 +112,8 @@ function checkCoinCollection() {
   //   - Increase obstacle speed slightly
   if(dist(playerX, playerY, coinX, coinY)<15){
     score+=1
-    
+    newCoin()
+    obstacleSpeed+=1
   }
 }
 
@@ -119,6 +124,13 @@ function checkCollisions() {
   //   - Increase hits
   //   - Check for game over (hits >= 3)
   //   - Reset positions
+  if (distance(playerX, playerY, obstacleX, obstacleY)<20){
+    hits+=1
+    if (hits>=3){
+      displayGameOver()
+    }
+    resetGame()
+  }
 }
 
 function displayStats() {
@@ -126,6 +138,7 @@ function displayStats() {
   textSize(16);
   text("Score: " + score, 10, 20);
   // TODO: Add display for hits and speed
+  
 }
 
 function displayGameOver() {
@@ -148,6 +161,11 @@ function resetGame() {
   // HINT: Reset score, hits, speed
   // Set gameOver to false
   // Call initializeGame()
+  score = 0
+  hits = 0
+  obstacleSpeed = 5
+  gameOver = false
+  initializeGame()
 }
 
 function keyPressed() {
