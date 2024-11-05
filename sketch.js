@@ -100,6 +100,7 @@ function moveObstacle() {
   if(obstacleY>height){
     obstacleY=0
     obstacleX=random(20, width-20)
+    obstacleSpeed+=0.5
   }
 }
 
@@ -129,7 +130,10 @@ function checkCollisions() {
     if (hits>=3){
       displayGameOver()
     }
-    resetGame()
+    playerX = width/2;
+    playerY = height - 20
+    obstacleY=0
+    obstacleX=random(20, width-20)
   }
 }
 
@@ -138,7 +142,8 @@ function displayStats() {
   textSize(16);
   text("Score: " + score, 10, 20);
   // TODO: Add display for hits and speed
-  
+  text("Hits: " + hits, 100, 20)
+  text("Speed: " + obstacleSpeed, 190, 20)
 }
 
 function displayGameOver() {
@@ -148,6 +153,8 @@ function displayGameOver() {
   //   - "Game Over" message
   //   - Final score
   //   - "Press R to Restart"
+  speed = 0
+  
 }
 
 function newCoin() {
